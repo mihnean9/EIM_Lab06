@@ -4,9 +4,11 @@ import android.util.Log;
 import android.widget.EditText;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.Socket;
 
 import ro.pub.cs.systems.eim.lab06.clientservercommunication.general.Constants;
+import ro.pub.cs.systems.eim.lab06.clientservercommunication.general.Utilities;
 
 public class CommunicationThread extends Thread {
 
@@ -23,9 +25,11 @@ public class CommunicationThread extends Thread {
         try {
             Log.v(Constants.TAG, "Connection opened with " + socket.getInetAddress() + ":" + socket.getLocalPort());
 
-            // TODO exercise 6a
             // - get the PrintWriter object in order to write on the socket (use Utilities.getWriter())
             // - print a line containing the text in the serverTextEditText edit text
+            Log.v(Constants.TAG, "Connection opened to " + socket.getLocalAddress() + ":" + socket.getLocalPort()+ " from " + socket.getInetAddress());
+            PrintWriter printWriter = Utilities.getWriter(socket);
+            printWriter.println(serverTextEditText.getText().toString());
 
             socket.close();
             Log.v(Constants.TAG, "Connection closed");
